@@ -1,47 +1,944 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-<head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Meta-HCI</title>
-<style type="text/css">
-.organizer{
-	margin:50px 0px 20px 100px;
-}
-.organizer img {
-	float: left
-}
-.organizer .text {
-	float: left;
-	margin-left: 20px;
-	font-size: 1.3rem;
-	color: white;
-}
-</style>
-</head>
-<body style="padding:0;margin:0;background-image:url(./dall-e.webp);background-size:cover;">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Meta-HCI Workshop @ CHI'25</title>
 
-<div class="organizer" style="clear:both">
-	<img src="./organizer-1.webp" width="200" height="200" alt="ORGANIZER" />
-	<span class="text">
-		Organizer
-	</span>
-	<div style="clear:both"></div>
+  <meta name="keywords" content="creativity support, creativity support tools, creativity, crowdsourcing" />
+  <meta name="description" content="In this full-day workshop at CHI'19, we brainstorm new crowdsourcing systems and concepts for supporting creativity. The workshop consists of discussions of ideas and hands-on brainstorming sessions in groups, bringing together researchers and industry professionals. We center the workshop around two themes: supporting the individual and facilitating creativity in groups." />
+
+    <link rel="stylesheet" href="css/materialize.min.css">
+    <link rel="stylesheet" href="css/aos.css">
+    <script src="js/materialize.min.js"></script>
+    <script src="js/aos.js"></script>
+
+    <link href="css/icon.css" rel="stylesheet" />
+    <!--
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+     -->
+    <style type="text/css">
+      html, body {height: 100%;}
+      body{
+        margin:0;
+        padding:0;
+        font-size: 1.2rem;
+      }
+      .topbarpadding{
+        margin:40px 0 0 0;
+        padding:0;
+      }
+      .bg1, .bg2, .bg3, .bg4, .bg5, .bg6, .bg7{
+        background-size: cover;
+      }
+      .bg1{
+        background-image:url('img/tmpvb7m27ds.jpg');
+/*        background-position:center 60%;*/
+      }
+      .bg2{
+        background-image:url('img/tmpv4142yam.jpg');
+        background-position:center 54%;
+      }
+      .bg3{
+        background-image:url('img/tmpvjla3ium.jpg');
+        background-position:center 34%;
+      }
+      .bg4{
+        background-image:url('img/tmpkpiqa4rf.jpg');
+        background-position:center 54%;
+      }
+      .bg5{
+        background-image:url('img/tmpl09tyhn1.jpg');
+        background-position:center 54%;
+      }
+      .bg6{
+        background-image:url('img/tmpl09tyhn1-2.jpg');
+        background-position:center 54%;
+      }
+      .bg7{
+        background-image:url('img/tmpxjm_g0io.jpg');
+        background-position:center 24%;
+      }
+      #headerunderlay{
+        z-index: -1;
+        position:absolute;
+        top:0;
+        left:0;
+        height:40px;
+        width:100%;
+        opacity:.8;
+        padding:0;
+        margin:0;
+      }
+/*      #souxheader{
+        background-image:url(./img/bg.jpg);
+        background-repeat: no-repeat;
+        background-size: 100% auto;
+        background-position: center 80%;
+        z-index:-1;
+        position:absolute;
+        top:150px;
+        height:400px;
+        width:100%;
+        margin:0;
+        padding:0;
+      }*/
+      #logo{
+        padding-top:3rem;
+        font-size: 100px;
+        text-align:center;
+      }
+      #navToggle{
+        position:fixed;
+        top:1.5rem;
+        left:2rem;
+        font-size:50px;
+      }
+      #navToggle a{
+        text-decoration:none;
+        color:#000000;
+      }
+      section{
+        margin:5rem 0 1rem 0;
+        padding-left:2rem;
+        padding-right:2rem;
+      }
+      h1,h2,h3,h4{
+        text-align:center;
+      }
+      h2{
+        padding-top: 3rem;
+        padding-bottom: 2rem;
+      }
+      .red-text{
+        color:red;
+      }
+      .organizer{
+        text-align:center;
+        margin-bottom: 2rem;
+      }
+      .organizer .img{
+        margin:0 auto 1rem auto;
+        width:150px;
+        height:150px;
+        border-radius:75px;
+        display:block;
+        text-align:center;
+        background-position: center center;
+        background-repeat: no-repeat;
+        overflow: hidden;
+        background-size:cover;
+      }
+      .position{
+        font-style: italic;
+      }
+      .institution{
+        min-height:45px;
+      }
+      .introtext{
+        font-family:Courier New, Courier, sans-serif;
+        font-size:0.5em;
+        display:block;
+        padding:0;
+        margin:0;
+      }
+      .subtitle{
+        font-weight:600;
+      }
+      .keyword{
+        font-weight:600;
+      }
+      .centered{
+        text-align:center;
+      }
+      #dates i{
+        font-size:0.9rem;
+      }
+      .position{
+        font-style:italic;
+      }
+      .bigicons{
+        font-size:6rem;
+      }
+      .smallicons{
+        font-size:3rem;
+      }
+      .breakout{
+        text-align:center;
+        margin-top:1rem;
+      }
+      .breakout .breakoutimg {
+        border-radius:10px;
+        overflow:hidden;
+      }
+      .breakout h4 {
+        margin-top:0rem;
+      }
+      div#nav{
+        z-index:999;
+/*
+        position:fixed;
+        left:2rem;
+        top:1rem;
+*/
+        background-color:#FFFFFF;
+        min-width:160px;
+        padding-right:10px;
+        font-size: 1.5rem;
+      }
+      .breakoutimg{
+        min-height: 120px;
+        background-position: center center;
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
+      /*magic mushrooms*/
+      .organizer .img {
+        box-shadow:0px 0px 5px 5px transparent;
+        transition:box-shadow 0.5s,opacity 0.5s;
+        -moz-transition:box-shadow 0.5s,opacity 0.5s;
+        -webkit-transition:box-shadow 0.5s,opacity 0.5s;
+        opacity:1;
+      }
+      .organizer .img:hover{
+        cursor:pointer;
+        border:none;
+        opacity:0.9;
+        box-shadow:0px 0px 5px 5px rgba(0,0,0,0.2);
+        transition:box-shadow 0.5s,opacity 0.5s;
+        -moz-transition:box-shadow 0.5s,opacity 0.5s;
+        -webkit-transition:box-shadow 0.5s,opacity 0.5s;
+      }
+      .small-print{
+      	font-size:80%;
+      }
+      .cfp-link{
+      	margin:0 0 1em 0;
+      	padding:0;
+      }
+    </style>
+  </head>
+<body id="top">
+
+<div id="headerunderlay" class="cyan"></div>
+
+<div class="col m9 l10 topbarpadding">
+
+<div id="navToggle" data-aos="fade-down" data-aos-anchor="#trigger-menu">
+  <a href="./#top">Meta-HCI</a>
+  <div id="nav" class="col hide-on-med-and-down m3 l2">
+    <ul class="section table-of-contents">
+      <li><a href="#introduction">Introduction</a></li>
+      <li><a href="#meta-research">Meta-Research</a></li>
+      <li><a href="#objectives">Objectives</a></li>
+      <li><a href="#topics">Topics</a></li>
+      <li><a href="#structure">Structure</a></li>
+      <li><a href="#cfp">Call for Participation</a></li>
+      <li><a href="#organizers">Organizers</a></li>
+    </ul>
+  </div>
+</div><!--navToggle-->
+
+
+<section class="bg1" style="margin-top:0;padding-top:0;padding-bottom:50px;">
+  <div id="logo">Meta-HCI</div>
+
+  <h1>
+    <span class="introtext">First Workshop on</span>
+    Meta-Research in HCI
+  </h1>
+  <div class="centered">
+  	<div>April, 2025 <span class="red-text">(exact date TBA)</span></div>
+  	<div>
+      <strong>at
+        <a href="https://chi2025.acm.org/" title="CHI '25" rel="mothership" target="_blank">ACM CHI Conference on<br /> Human Factors in Computing Systems<br />(CHI '25)
+        </a>
+      </strong>
+    </div>
+   	<div>Yokohama, Japan<div>
+    <div>(in-person)<div>
+      <!-- <div>Room: <del>Island A CROWN</del> STAFFA</div> -->
+  </div>
+
+  <section id="dates" class="centered section scrollspy">
+    <div class="centered cfp-link">
+      <a href="https://github.com/dc2s2/2019/raw/master/cfp/W06a.pdf"><strong>Read the full CfP</strong></a> [PDF]
+    </div>
+    <div>Important Dates:</div>
+    <div>Submission Deadline: February 2025 <i class="material-icons" style="cursor:default">event_note</i> <span class="red-text">(exact date TBA)</span></div>
+    <div>Notification of Acceptance: February 2025 <i class="material-icons" style="cursor:default">event_note</i> <span class="red-text">(exact date TBA)</span></div>
+    <div>Workshop Date: April 2025 <i class="material-icons" style="cursor:default">event_note</i> <span class="red-text">(exact date TBA)</span></div>
+  </section>
+
+</section>
+
+
+
+<section id="introduction" class="section scrollspy" style="background-color:#FFFFFF;margin-top:0;padding-top:0;padding-bottom:50px;">
+<div class="container">
+<h2>Introduction</h2>
+<!--
+<span class="keyword">Crowdsourcing</span> has been applied to a broad range of creative processes, from supporting research
+to helping unfold global-scale wicked problems.
+-->
+<p>
+  <span class="keyword">Human-Computer Interaction (HCI)</span> is a diverse and rapidly evolving field. It has undergone many changes, and several current challenges deserve more attention from the community. <span class="keyword">Meta-research</span> – the study of research practices – offers insights into how the field of HCI can refine its methodological frameworks, enhance rigor, and address its challenges.
+  We believe CHI deserves a dedicated space for meta-research.
+</p>
+<p id="trigger-menu">
+  This <span class="keyword">workshop</span> establishes an open space for HCI scholars at the ACM CHI Conference to explore and discuss <span class="keyword">meta-research in HCI</span>. We are equally focused on the past, present, and future: what we study, how we document it, how we evaluate, and how we distribute our work, and its collateral effects, such as mounting career pressures.
+  Together, we will work towards a research roadmap specifically for HCI meta-research.
+  In the long term, we hope to see this workshop be the initial spark to establishing a permanent HCI meta-research community.
+</p>
 </div>
-<div class="organizer" style="clear:both">
-	<img src="./organizer-2.webp" width="200" height="200" alt="ORGANIZER" />
-	<span class="text">
-		Organizer
-	</span>
-	<div style="clear:both"></div>
+</section>
+
+
+<section id="meta-research" class="section scrollspy bg3" style="background-color:#FFFFFF;margin-top:0;padding-top:0;padding-bottom:50px;">
+<div class="container">
+<h2>Why Meta-Research?</h2>
+<p>
+  As the field of Human-Computer Interaction continues to evolve, it is becoming increasingly important to thematize the <span class="keyword">growing pain points in HCI research</span>, not only in steering and working groups, but also in rigorous
+scientific publications. Self-reflective and meta-scientific contributions are critically important to
+advance the HCI field as a whole. Yet, little research and self-reflection is being published in HCI. It is time for the
+CHI community to pause and reflect on how things have progressed in the past decade and where we are headed.
+<span class="keyword">Meta-research</span> is the study of research practices. Meta-research and the science of science offer
+valuable insights into how HCI as a field can refine its methodological frameworks, enhance rigor, and address
+its challenges. Meta-research contributions on HCI currently have no dedicated venue at ACM conferences,
+and the CHI Conference currently has no fitting subcommittee for meta-scientific investigations. In the past,
+such investigations have been relegated to poster contributions or adjunct proceedings
+(&lquot;alt.chi&rquot;) where the investigations might not get all the attention they deserve. This is suboptimal and also
+contrasts with the field’s critical and self-reflective tradition.
+</p>
 </div>
-<div class="organizer" style="clear:both">
-	<img src="./organizer-3.webp" width="200" height="200" alt="ORGANIZER" />
-	<span class="text">
-		Organizer
-	</span>
-	<div style="clear:both"></div>
+</section>
+
+
+
+
+<section id="objectives" class="section scrollspy" style="margin-top:0;padding-top:0;padding-bottom:50px;">
+<div class="container">
+<h2>Objectives of the workshop</h2>
+
+<p>
+This one-day workshop aims to bring together researchers,
+practitioners, and reviewers within the HCI community and beyond to explore and discuss meta-research.
+By critically evaluating the processes underlying HCI research, we can improve the ways in which studies are
+conducted, reported, and assessed, fostering a culture of transparency and methodological rigor. Given the
+cross-disciplinary nature of HCI, CHI — its flagship conference — serves as the ideal venue to discuss these topics,
+thanks to its diverse community in terms of background, practice, and perspectives.
+The workshop will provide a forum for researchers to share, discuss, and brainstorm their ideas about improving
+the current state of meta-research in HCI. We aim to provide a common platform for meta-research in HCI, and
+to establish a research agenda for meta-scientific investigations in HCI.
+</p>
+
+<div class="row">
+  <!--
+  <div class="breakout col l2 offset-l1 m4">
+    <i class="smallicons material-icons">chat_bubble_outline</i>
+    <h5>Discuss and brainstorm<br />meta-research in HCI</h5>
+  </div>
+  -->
+  <div class="breakout col l2 m4 s6 offset-l3 offset-m2">
+    <i class="smallicons material-icons">content_paste</i>
+    <h5>Develop an agenda for<br />meta-research<br />in HCI</h5>
+  </div>
+  <div class="breakout col l2 m4">
+    <i class="smallicons material-icons">people_outline</i>
+    <h5>Foster a <br />meta-research community<br />in HCI</h5>
+  </div>
+  <div class="breakout col l2 m4">
+    <i class="smallicons material-icons">device_hub</i>
+    <h5>Drive positive change<br />in the HCI community</h5>
+  </div>
 </div>
+
+<p>
+This workshop is for anyone in the HCI community who cares about understanding, cataloging, and improving
+the ways we conduct research. By taking a step back and looking critically at how we design, conduct, and
+share our work, we can identify areas where we can improve. The goal is to create a space where we can safely
+and openly discuss the challenges of HCI research and develop practical ways to ensure that HCI research is
+as rigorous, transparent, and impactful as possible.
+</p>
+
+<p>
+This workshop is intended to mark the starting point of a
+meta-research community in HCI that outlasts the workshop event.
+The workshop will be a catalyst for change in the CHI and HCI community. The potential for meta-research
+to produce meaningful impact is manifold. The Meta-HCI workshop explores how the HCI field has evolved,
+its methodologies, and its impacts. This provides an opportunity for researchers to reflect on the direction HCI
+research is heading and what has worked or needs to be rethought. The workshop provides a platform for critical
+engagement with the field, encouraging researchers to question assumptions, frameworks, and biases in HCI
+research. This fosters a more mature, self-aware research community. Meta-research encourages researchers to
+scrutinize the relevance of the work being presented at CHI in the context of real-world HCI problems. This can
+help ensure that future CHI research addresses pressing societal and technological issues, making the research
+more impactful. By examining trends in meta-HCI, researchers can identify gaps and areas where HCI needs to
+evolve, creating a shared agenda for future research. This is particularly relevant in the fast-developing field of
+HCI which is continuously reshaped by new technologies.
+<!--
+Meta-research is also an important source for policy
+and guideline development.
+-->
+</p>
+
+</div>
+</section>
+
+
+
+<section id="topics" class="section scrollspy bg2" style="margin-top:0;padding-top:0;padding-bottom:50px;">
+<div class="container">
+<h2>Workshop Topics</h2>
+
+<p class="centered">
+The workshop topics include, but are by no means limited to, the following topics:
+</p>
+
+<div class="row">
+
+  <div class="breakout col m6 l4">
+    <!--
+    <i class="bigicons material-icons">device_hub</i>
+    -->
+    <h4>What we study in HCI</h4>
+    <!--
+    <div class="breakoutimg" style="background-image:url(img/photo-1523430237819-5fdfeb4f5604.jpg);background-position:center 54%;"></div>
+    -->
+    <p class="breakouttxt">
+      HCI research involving human factors reflects the zeitgeist and ethos of its time. In recent years, popular topics have been influenced by the rapid proliferation of large language models, conversational systems, and other generative systems. On the negative side of this development, the availability of these writing machines that can &quot;delve&quot; into any topic and simulate participants opens opportunities for bad actors to productionize their output at the expense of quality.
+      Further, some community members have voiced strong opinions recently about how a disproportionate number of HCI work is now thematizing or using generative AI. Yet, generative AI also has transformative positive potential in how we conduct research at large, and going forward it will only make sense to shed light on those ways and try to identify the constructive and creative ways of using them ethically and productively.
+    </p>
+    <!--
+    <p>
+      Challenges under this theme include, for example:
+    </p>
+    <ul class="collection">
+    <li class="collection-item">
+      Interfaces and software for supporting peak-productive moments (&quot;bursts&quot;) of
+      an individual&apos;s creativity with the collective intelligence of the crowd
+    </li>
+    <li class="collection-item">
+      Preventing cognitive overload of the individual:
+          Evaluating the quality of contributions from the crowd and
+          helping explore the space of solutions contributed by the crowd
+    </li>
+    </ul>
+    -->
+  </div>
+
+  <div class="breakout col m6 l4">
+    <!--
+    <i class="bigicons material-icons">device_hub</i>
+    -->
+    <h4>How we conduct research</h4>
+    <!--
+    <div class="breakoutimg" style="background-image:url(img/photo-1527153818091-1a9638521e2a.jpg);background-position:center 52%;"></div>
+    -->
+    <p class="breakouttxt">Generative AI aside, there are other fundamental issues to focus on in terms
+of how we conduct research. For instance, the &quot;replication crisis&quot; has been identified earlier but
+not necessarily fully addressed yet. Expectations of the field also steer the ways we work. For instance, the
+CHI Conference has seen an increase in the quality expectations for published works. Arguably, some of the
+research published ten years ago would no longer meet the minimum requirements of today’s CHI Conference.
+For instance, the number of references included in a CHI paper has increased with each year since CHI '16,
+and most likely this is now an implicit expectation by reviewers. From a pure knowledge-creation perspective, it
+is also fascinating to understand the citation behaviors of the community.</p>
+    <!--
+    <p>Challenges under this theme include, but are not limited to:</p>
+    <ul class="collection">
+      <li class="collection-item">
+        Determining levels of collaboration to prevent early fixation of the group without limiting the quality through feedback
+      </li>
+      <li class="collection-item">
+        Dynamically guiding crowd efforts based on task needs, worker profiles, etc.
+      </li>
+      <li class="collection-item">
+        Automating repetitive tasks in group ideation
+      </li>
+    </ul>
+    -->
+  </div>
+
+  <div class="breakout col m6 l4">
+    <!--
+    <i class="bigicons material-icons">device_hub</i>
+    -->
+    <h4>How we evaluate research</h4>
+    <!--
+    <div class="breakoutimg" style="background-image:url(img/photo-1527153818091-1a9638521e2a.jpg);background-position:center 52%;"></div>
+    -->
+    <p class="breakouttxt">Peer review is an integral part of our work, in evaluating the work. While
+critically important, it also faces a number of recognized limitations.
+As the field evolves, peer review changes. Indeed, CHI has also introduced several changes over the years. Currently we are
+hearing the weak signals from the community in terms of how, for instance, the already mentioned generative
+AI is used, should be used, or should not be used in peer review. Other aspects include the obsession with
+novelty and the lukewarm reception of negative but nonetheless interesting results. Unclear policies can result,
+for instance, in inconsistently enforced desk rejections and peer reviews. Differing ethics policies among
+institutions is a constant topic of debate in peer reviewing. And the entire community now feels the increased
+workload in review duties, leading to difficulties in identifying the best reviewers for the research. There is
+a growing urgency to act on these issues. For instance, the CHI Steering Committee recently established a
+one-year working group on peer review. The working group's objectives include evaluating the potential for
+the introduction of a credit system for peer review and the establishment of more consistent norms and
+policies.</p>
+    <!--
+    <p>Challenges under this theme include, but are not limited to:</p>
+    <ul class="collection">
+      <li class="collection-item">
+        Determining levels of collaboration to prevent early fixation of the group without limiting the quality through feedback
+      </li>
+      <li class="collection-item">
+        Dynamically guiding crowd efforts based on task needs, worker profiles, etc.
+      </li>
+      <li class="collection-item">
+        Automating repetitive tasks in group ideation
+      </li>
+    </ul>
+    -->
+  </div>
+
+  <div class="breakout col m6 l4">
+    <!--
+    <i class="bigicons material-icons">device_hub</i>
+    -->
+    <h4>What we publish in HCI</h4>
+    <!--
+    <div class="breakoutimg" style="background-image:url(img/photo-1527153818091-1a9638521e2a.jpg);background-position:center 52%;"></div>
+    -->
+    <p class="breakouttxt">The nature of what we evaluate has evolved, with submissions now including various adjunct materials (video figure, data sets, submission history, etc.) that may influence the peer review process in many subjective ways.
+    It is easy to envision how the current format is not the &quot;final optimal&quot; way of documenting research.
+  In addition to what we publish, there is also the consideration of how much we publish.</p>
+    <!--
+    <p>Challenges under this theme include, but are not limited to:</p>
+    <ul class="collection">
+      <li class="collection-item">
+        Determining levels of collaboration to prevent early fixation of the group without limiting the quality through feedback
+      </li>
+      <li class="collection-item">
+        Dynamically guiding crowd efforts based on task needs, worker profiles, etc.
+      </li>
+      <li class="collection-item">
+        Automating repetitive tasks in group ideation
+      </li>
+    </ul>
+    -->
+  </div>
+
+  <div class="breakout col m6 l4">
+    <!--
+    <i class="bigicons material-icons">device_hub</i>
+    -->
+    <h4>Contextual factors and learnings from broader science</h4>
+    <!--
+    <div class="breakoutimg" style="background-image:url(img/photo-1527153818091-1a9638521e2a.jpg);background-position:center 52%;"></div>
+    -->
+    <p class="breakouttxt">
+      Science is evolving, and these changes also affect us HCI researchers.
+      There are high incentives to publish always more and more. These mounting career pressures to publish also seem to affect
+the young academics disproportionately.</p>
+    <!--
+    <p>Challenges under this theme include, but are not limited to:</p>
+    <ul class="collection">
+      <li class="collection-item">
+        Determining levels of collaboration to prevent early fixation of the group without limiting the quality through feedback
+      </li>
+      <li class="collection-item">
+        Dynamically guiding crowd efforts based on task needs, worker profiles, etc.
+      </li>
+      <li class="collection-item">
+        Automating repetitive tasks in group ideation
+      </li>
+    </ul>
+    -->
+  </div>
+
+  <div class="breakout col m6 l4">
+    <!--
+    <i class="bigicons material-icons">device_hub</i>
+    -->
+    <h4>Bring your<br />own Topic!</h4>
+    <!--
+    <div class="breakoutimg" style="background-image:url(img/photo-1527153818091-1a9638521e2a.jpg);background-position:center 52%;"></div>
+    -->
+    <p class="breakouttxt">
+      Rather than prescribing activities at the workshop, participants can also bring their own topics to work on. 
+    </p>
+    <!--
+    <p>Challenges under this theme include, but are not limited to:</p>
+    <ul class="collection">
+      <li class="collection-item">
+        Determining levels of collaboration to prevent early fixation of the group without limiting the quality through feedback
+      </li>
+      <li class="collection-item">
+        Dynamically guiding crowd efforts based on task needs, worker profiles, etc.
+      </li>
+      <li class="collection-item">
+        Automating repetitive tasks in group ideation
+      </li>
+    </ul>
+    -->
+  </div>
+
+</div>
+</div>
+</section>
+
+
+
+<section id="structure" class="section scrollspy" style="margin-top:0;padding-top:0;padding-bottom:50px;">
+<div class="container">
+<h2>Workshop Structure</h2>
+The first part of the workshop will give room for participants to briefly present their submissions.
+<div class="centered s12 m8 l6">
+<table class="centered hover highlight responsive-table">
+  <thead>
+    <tr>
+        <th>Start</th>
+        <th>End</th>
+        <th class="left">Program Schedule</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>09:00</td>
+      <td>09:15</td>
+      <td class="left">Keynote</td>
+    </tr>
+    <tr>
+      <td>09:15</td>
+      <td>09:45</td>
+      <td class="left">Welcome and introductions</td>
+    </tr>
+    <tr>
+      <td>09:45</td>
+      <td>10:30</td>
+      <td class="left">Lightning presentation rounds</td>
+    </tr>
+    <tr>
+      <td>10:30</td>
+      <td>11:00</td>
+      <td class="left">Coffee break</td>
+    </tr>
+    <tr>
+      <td>11:00</td>
+      <td>11:45</td>
+      <td class="left">Lightning presentation rounds (continued)</td>
+    </tr>
+    <tr>
+      <td>11:45</td>
+      <td>12:00</td>
+      <td class="left">Preparing afternoon sessions</td>
+    </tr>
+    <tr>
+      <td>12:00</td>
+      <td>13:00</td>
+      <td class="left">Lunch</td>
+    </tr>
+    <tr>
+      <td>13:00</td>
+      <td>14:30</td>
+      <td class="left">Group work sessions</td>
+    </tr>
+    <tr>
+      <td>14:30</td>
+      <td>15:00</td>
+      <td class="left">Break</td>
+    </tr>
+    <tr>
+      <td>15:00</td>
+      <td>16:30</td>
+      <td class="left">Group work sessions</td>
+    </tr>
+    <tr>
+      <td>16:30</td>
+      <td>17:00</td>
+      <td class="left">Closing</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</section>
+
+
+
+<section id="cfp" class="bg1 centered section scrollspy" style="margin-top:0;padding-top:0;padding-bottom:50px;">
+<div class="container">
+<!-- 	<h2 style="font-face: Courier New, Courier, sans-serif; color: red">TL;DR CfP</h2>
+	<p>
+		<ul>
+			<li>Submit your ideas for creativity support systems or future challenges <br />
+				in the form of a short position statement to <a href="mailto:dc2s2workshop@oulu.fi">dc2s2workshop@oulu.fi</a> (Deadline: Feb 12).</li>
+			<li>Accepted submissions will be shared with the other attendees before the workshop.</li>
+			<li>In the workshop, we will brainstorm around the proposed ideas.</li>
+		</ul>
+	</p>
+<br />
+ -->
+<h2>Call for Participation</h2>
+<p>
+The Meta-HCI workshop invites researchers and practitioners to discuss meta-research in HCI.
+Meta-research focuses on studying research practices and offers insights into how HCI can enhance its
+methodological frameworks, improve rigor, and address the field’s growing challenges.
+</p>
+
+<p>
+This one-day workshop will serve as a platform for the HCI community to share thoughts and experiences
+with meta-research, and collectively examine the processes that shape the research in our field. The workshop themes include, but are not limited to, what we study and publish in HCI, how we conduct and evaluate research in HCI, how HCI research
+affects us, and how the broader context of science affects HCI research.
+</p>
+
+<p>
+Participants are invited to submit short papers (5–6 pages, references excluded) or full papers (min. 6 pages, references excluded) in the form of studies, experiments, bibliometric and scientometric investigations, or other meta-scientific research.
+Since meta-research is an emerging area in HCI, we also accept short position papers (2–5 pages, references excluded).
+Submissions should use the CEURART 1-column template. The workshop organizers will review submissions primarily based
+on their potential to stimulate engaging discussions.
+At least one author of each accepted paper must register for the workshop and attend the event.
+<!--
+At least one author of each accepted paper must
+attend the workshop and all participants must register for both the workshop and for at least one day
+of the conference. More details about the workshop can be found in the call for proposals.
+-->
+</p>
+
+<p>
+Manuscripts should be submitted as email attachments in pdf format to the workshop co-chairs at
+<strong><a href="mailto:meta-hci@oulu.fi">meta-hci@oulu.fi</a></strong>,
+by <span class="keyword">February, 2025 (before the early bird registration deadline; exact date TBA)</span>.
+</p>
+
+<p>
+We look forward to your contributions and to welcoming you to an exciting
+and productive discussion on the future of HCI research practices!
+The latest information on the workshop will be published at <a href="https://meta-hci.github.io/">https://meta-hci.github.io</a>.
+</p>
+
+
+</div>
+</section>
+
+
+
+
+
+<!-- https://naturalgoodscompany.com/wp-content/uploads/male-placeholder-image.jpeg -->
+<section id="organizers" class="section scrollspy">
+<div class="container">
+<h2>Organizers</h2>
+    <div class="row">
+      <div class="organizer col l3 m6 s12">
+        <div class="img" style="background-image:url(img/placeholder.webp);filter: grayscale(80%);" title="Jonas Oppenlaender"></div>
+        <a href="https://www.jonaso.de/" target="_blank" title="Jonas Oppenlaender">Jonas Oppenlaender</a>
+        <div>
+          <div class="position">Doctoral Researcher</div>
+          <div class="institution">Universty of Oulu</div>
+          <div class="institution">Finland</div>
+        </div>
+        <div class="orgdescr">
+          Jonas is a Postdoctoral Researcher in the Center for Ubiquitous Computing at the University of Oulu, Finland. His research interests include supporting people in being more creative and applications of generative artificial intelligence for the future of work and science.
+        </div>
+      </div>
+      <div class="organizer col l3 m6 s12">
+        <div class="img" style="background-image:url(img/Sylvain_Malacria.jpg);filter: grayscale(85%);" title="Sylvain Malacria"></div>
+        <a href="https://www.malacria.com" target="_blank" title="Sylvain Malacria">Sylvain Malacria</a>
+        <div>
+          <div class="position">Research Scientist/Assistant Professor</div>
+          <div class="institution">University of Lille, Inria, CNRS</div>
+          <div class="institution">France</div>
+        </div>
+        <div class="orgdescr">
+          Sylvain is a research scientist at Inria, where he conducts his research in the Loki group. He is also an adjunct assistant professor at the University of Waterloo, Canada (2021-2024). His research interests is in the area of human-computer interaction (HCI), with additional focus on designing interactive systems and interaction techniques.
+        </div>
+      </div>
+      <div class="organizer col l3 m6 s12">
+        <div class="img" style="background-image:url(img/Xinrui_Fang.jpg);filter: grayscale(70%);" title="Xinrui Fang"></div>
+        <a href="https://xinrui.design" target="_blank" title="Xinrui Fang">Xinrui Fang</a>
+        <div>
+          <div class="position">PhD Student</div>
+          <div class="institution">University of Tokyo</div>
+          <div class="institution">Japan</div>
+        </div>
+        <div class="orgdescr">
+          Xinrui is a 1st year PhD Student in the HCI field based in Tokyo. His passion is to combine his engineering skills and design smell to create cool stuffs. He has engineering experience and a master degree from Keio University. His research interests are human-computer and human-AI interaction and applied machine learning.
+        </div>
+      </div>
+      <div class="organizer col l3 m6 s12">
+        <div class="img" style="background-image:url(img/Niels_van_Berkel.jpg);filter: grayscale(70%);" title="Niels van Berkel"></div>
+        <a href="https://www.nielsvanberkel.com" target="_blank" title="Niels van Berkel">Niels van Berkel</a>
+        <div>
+          <div class="position">Associate Professor</div>
+          <div class="institution">Aalborg University</div>
+          <div class="institution">Denmark</div>
+        </div>
+        <div class="orgdescr">
+          Niels is an Associate Professor at Aalborg University. His work focuses on the design and evaluation of intelligent computing systems, particularly in real-world contexts, publishing in HCI, Social Computing, and Ubiquitous Computing.
+        </div>
+      </div>
+      <div class="organizer col l3 offset-l2 m6 s12">
+        <div class="img" style="background-image:url(img/Fanny_Chevalier.jpg);filter: grayscale(90%);" title="Fanny Chevalier"></div>
+        <a href="https://fannychevalier.net" target="_blank" title="Fanny Chevalier">Fanny Chevalier</a>
+        <div>
+          <div class="position">Associate Professor</div>
+          <div class="institution">University of Toronto</div>
+          <div class="institution">Canada</div>
+        </div>
+        <div class="orgdescr">
+          Fanny is an Associate Professor at the University of Toronto, and a Knight of the France’s Order of Academic Palms. Her research focuses primarily on human-computer interaction for creativity, and data visualization.
+        </div>
+      </div>
+      <div class="organizer col l3 m6 s12">
+        <div class="img" style="background-image:url(img/Koji_Yatani.jpg);filter: grayscale(70%);" title="Koji Yatani"></div>
+        <a href="https://iis-lab.org" target="_blank" title="Koji Yatani">Koji Yatani</a>
+        <div>
+          <div class="position">Associate Professor</div>
+          <div class="institution">University of Tokyo</div>
+          <div class="institution">Japan</div>
+        </div>
+        <div class="orgdescr">
+          Koji is an Associate Researcher and the director of the Interactive Intelligent Systems Laboratory at the University of Tokyo. His current research focuses on Human-AI Interaction and human well-being support. He is serving as a Technical Program Chair for CHI 2025.
+        </div>
+      </div>
+      <div class="organizer col l3 m6 offset-m3 s12">
+        <div class="img" style="background-image:url(img/Simo_Hosio.jpg);filter: grayscale(70%);" title="Simo Hosio"></div>
+        <a href="https://www.simohosio.com/" target="_blank" title="Simo Hosio">Simo Hosio</a>
+        <div>
+          <div class="position">Associate Professor</div>
+          <div class="institution">University of Oulu</div>
+          <div class="institution">Finland</div>
+        </div>
+        <div class="orgdescr">
+          Simo is an Associate Professor and the leader of Crowd Computing Research Group at the University of Oulu, Finland. He has organized multiple workshops in CHI, Ubicomp and CSCW conferences, and is interested in crowdsourcing and digital wellbeing.
+        </div>
+      </div>
+    </div>
+</div>
+</section>
+
+
+</div><!--col-->
+
+
+</div><!--container-->
+
+
+<footer class="page-footer cyan bg6">
+  <div class="container">
+    <div class="row">
+      <div class="col l8 s12">
+        <h5 class="black-text">Meta-HCI:</h5>
+        <p class="black-text text-lighten-4">Workshop on Meta-Research in HCI</p>
+        <p class="black-text text-lighten-4">May 2025</p>
+        <p class="black-text text-lighten-4">
+          Co-located with the
+          <a href="https://chi2025.acm.org/" title="CHI '25" target="_blank" class="black-text">ACM CHI Conference on Human Factors in Computing Systems (CHI'25)</a>
+          <br />
+	        Yokohama, Japan
+        </p>
+        <h5 class="black-text">Contact</h5>
+        <p class="black-text">
+        	Questions?<br />
+          Contact us at
+        	<a class="black-text" href="mailto:meta-hci@oulu.fi">meta-hci@oulu.fi</a>.
+        </p>
+<!--
+      </div>
+      <div class="col l4 s12">
+-->
+        <h5 class="black-text">Links</h5>
+        <ul>
+          <li>
+            <a class="black-text text-lighten-3" href="http://www.oulu.fi/" target="_blank" title="University of Oulu">University of Oulu</a>
+          </li>
+          <li>
+            <a class="black-text text-lighten-3" href="https://www.inria.fr/en/inria-centre-university-lille" target="_blank" title="Inria Centre at the University of Lille">Inria Centre at the University of Lille</a>
+          </li>
+          <li>
+            <a class="black-text text-lighten-3" href="https://www.u-tokyo.ac.jp/" target="_blank" title="University of Tokyo">University of Tokyo</a>
+          </li>
+          <li>
+            <a class="black-text text-lighten-3" href="https://www.en.aau.dk/" target="_blank" title="Aalborg University">Aalborg University</a>
+          </li>
+          <li>
+            <a class="black-text text-lighten-3" href="https://www.utoronto.ca/" target="_blank" title="University of Toronto">University of Toronto</a>
+          </li>
+        </ul>
+      </div>
+      <div class="col l4 offset-l2 s12">
+        <!--
+        <div class="small-print">
+	        <h6 class="white-text">Image credit</h6>
+	        <ul>
+	          <li>
+				Cloud photo by
+				<a class="white-text" href="http://nathandumlaocreative.com/" target="_blank">Nathan Dumlao</a>
+	          </li>
+	          <li>
+				`Person holding black smartphone` and
+				`Three persons in front of table` photo by
+				<a class="white-text" href="https://rawpixel.com/" target="_blank">rawpixel</a>
+	          </li>
+    			</ul>
+	      </div>
+        -->
+      </div>
+    </div>
+  </div>
+  <div class="footer-copyright black-text">
+    <div class="container">
+    &copy; 2024-2025 All Rights Reserved
+    <!--
+    <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+    -->
+    </div>
+  </div>
+</footer>
+
+
+<!-- https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js -->
+<script src="js/jquery-3.3.1.min.js"></script>
+<script>if (!window.jQuery) { document.write('<script src="js/jquery-3.3.1.min.js"><\/script>'); }</script>
+
+<script src="js/jquery.matchHeight-min.js"></script>
+
+
+<script type="text/javascript">
+$(function() {
+
+  $('.breakouttxt').matchHeight({
+    byRow: true,
+    property: 'height'
+  });
+
+  $('.collection').matchHeight({
+    byRow: true,
+    property: 'height'
+  });
+
+  let maxHeight = 0;
+  $('.orgdescr').each(function() {
+      maxHeight = Math.max(maxHeight, $(this).height());
+  }).height(maxHeight);
+
+  $('.organizer .img').on('click', function () {
+    var url = $(this).parent().find('a').attr('href');
+    window.location = url;
+  });
+
+  AOS.init({
+   duration: 1200
+  });
+
+});
+
+  document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.scrollspy');
+    var instances = M.ScrollSpy.init(elems, {
+      throttle: 100,
+      scrollOffset: 200,
+      activeClass: 'active',
+    });
+  });
+
+</script>        
 
 </body>
 </html>
