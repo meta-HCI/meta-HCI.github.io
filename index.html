@@ -1,388 +1,293 @@
-<!doctype html>
-<html>
-  <head>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Meta-HCI @ CHI '26</title>
+    <title>Meta-HCI: Practising Reflection in HCI Research Meetup @ CHI 2026</title>
 
-  <meta name="keywords" content="meta-science, meta-research, HCI, CHI, bibliometrics, scientometrics, HCI practices, self-reflection" />
-  <meta name="description" content="" />
+    <meta name="keywords" content="meta-science, meta-research, HCI, CHI, bibliometrics, scientometrics, HCI practices, self-reflection" />
+    <meta name="description" content="" />
 
-    <link rel="stylesheet" href="css/materialize.min.css">
-    <link rel="stylesheet" href="css/aos.css">
-    <script src="js/materialize.min.js"></script>
-    <script src="js/aos.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-beige': '#FDF1DB', // Primary background color
+                        'brand-black': '#000000', // Primary text and accent color
+                        'brand-gray': '#333333', // Secondary text
+                    },
+                    fontFamily: {
+                        sans: ['Syne', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400..800&display=swap');
+        
+        /* Set the primary background color for the body, which will be the default/fallback/primary section color (Beige) */
+        body {
+            background-color: #FDF1DB;
+        }
 
-    <link href="css/icon.css" rel="stylesheet" />
-    <!--
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
-     -->
-    <style type="text/css">
-      html, body {height: 100%;}
-      body{
-        margin:0;
-        padding:0;
-        font-size: 1.3rem;
-      }
-      .topbarpadding{
-        margin:45px 0 0 0;
-        padding:0;
-      }
-      .bg1, .bg2, .bg3, .bg4, .bg5, .bg6, .bg7{
-        background-size: cover;
-      }
-      .spbg1{
-        background-image:url('img/dc3ec82d-3464-4b6c-ab4f-bb064f8696ab.png');
-        background-position:center 50%;
-      }
-      .bg1{
-        background-image:url('img/tmpvb7m27ds.jpg');
-/*        background-position:center 60%;*/
-      }
-      .bg2{
-        background-image:url('img/tmpv4142yam.jpg');
-        background-position:center 54%;
-      }
-      .bg3{
-        background-image:url('img/tmpvjla3ium-2.jpg');
-        background-position:center 34%;
-/*        filter: grayscale(50%);
-        filter: saturate(40%);
-*/        z-index: 0;
-      }
-      .bg4{
-        background-image:url('img/tmpkpiqa4rf.jpg');
-        background-position:center 54%;
-      }
-      .bg5{
-        background-image:url('img/tmpl09tyhn1.jpg');
-        background-position:center 54%;
-      }
-      .bg6{
-        background-image:url('img/tmpl09tyhn1-2.jpg');
-        background-position:center 54%;
-      }
-      .bg7{
-        background-image:url('img/tmpxjm_g0io.jpg');
-        background-position:center 24%;
-      }
-      #headerunderlay{
-        z-index: -1;
-        position:absolute;
-        color:white;
-        top:0;
-        left:0;
-        height:45px;
-        width:100%;
-        opacity:.8;
-        padding:0;
-        margin:0;
-      }
-      #headerunderlay a{
-        color:white;
-      }
-/*      #souxheader{
-        background-image:url(./img/bg.jpg);
-        background-repeat: no-repeat;
-        background-size: 100% auto;
-        background-position: center 80%;
-        z-index:-1;
-        position:absolute;
-        top:150px;
-        height:400px;
-        width:100%;
-        margin:0;
-        padding:0;
-      }*/
-      #logo{
-        padding-top:3rem;
-        font-size: 100px;
-        text-align:center;
-      }
-      #navToggle{
-        position:fixed;
-        top:1.5rem;
-        left:2rem;
-        font-size:50px;
-        z-index: 9999;
-      }
-      #navToggle a{
-        text-decoration:none;
-        color:#000000;
-      }
-      section{
-        margin:5rem 0 1rem 0;
-        padding-left:2rem;
-        padding-right:2rem;
-      }
-      h1,h2,h3,h4{
-        text-align:center;
-      }
-      h2{
-        padding-top: 3rem;
-        padding-bottom: 2rem;
-      }
-      /*.red-text{
-        color:red;
-      }*/
-      .organizer{
-        text-align:center;
-        margin-bottom: 2rem;
-      }
-      .organizer .img{
-        margin:0 auto 1rem auto;
-        width:150px;
-        height:150px;
-        border-radius:75px;
-        display:block;
-        text-align:center;
-        background-position: center center;
-        background-repeat: no-repeat;
-        overflow: hidden;
-        background-size:cover;
-      }
-      .position{
-        font-style: italic;
-      }
-      .institution{
-        min-height:45px;
-      }
-      .introtext{
-        font-family:Courier New, Courier, sans-serif;
-        font-size:0.5em;
-        display:block;
-        padding:0;
-        margin:0;
-      }
-      .subtitle{
-        font-weight:600;
-      }
-      .keyword{
-        font-weight:600;
-      }
-      .centered{
-        text-align:center;
-      }
-      #dates i{
-        font-size:0.9rem;
-      }
-      .underline{
-        text-decoration:underline;
-      }
-      .position{
-        font-style:italic;
-      }
-      .page-footer{
-        color:white;
-      }
-      .bigicons{
-        font-size:6rem;
-      }
-      .smallicons{
-        font-size:3rem;
-      }
-      .breakout{
-        text-align:center;
-        margin-top:1rem;
-      }
-      .breakout .breakoutimg {
-        border-radius:10px;
-        overflow:hidden;
-      }
-      .breakout h4 {
-        margin-top:0rem;
-      }
-      div#nav{
-        z-index:999;
-/*
-        position:fixed;
-        left:2rem;
-        top:1rem;
-*/
-        background-color:#FFFFFF;
-        min-width:160px;
-        padding-right:10px;
-        font-size: 1.5rem;
-      }
-      .breakoutimg{
-        min-height: 120px;
-        background-position: center center;
-        background-size: cover;
-        background-repeat: no-repeat;
-      }
-      /*magic mushrooms*/
-      .organizer .img {
-        box-shadow:0px 0px 5px 5px transparent;
-        transition:box-shadow 0.5s,opacity 0.5s;
-        -moz-transition:box-shadow 0.5s,opacity 0.5s;
-        -webkit-transition:box-shadow 0.5s,opacity 0.5s;
-        opacity:1;
-      }
-      .organizer .img:hover{
-        cursor:pointer;
-        border:none;
-        opacity:0.9;
-        box-shadow:0px 0px 5px 5px rgba(0,0,0,0.2);
-        transition:box-shadow 0.5s,opacity 0.5s;
-        -moz-transition:box-shadow 0.5s,opacity 0.5s;
-        -webkit-transition:box-shadow 0.5s,opacity 0.5s;
-      }
-      .small-print{
-      	font-size:80%;
-      }
-      .cfp-link{
-      	margin:0 0 1em 0;
-      	padding:0;
-      }
-      .menu{
-        text-align: center;
-        padding-top: .3rem;
-      }
-      a {
-        color: #000000;
-        text-decoration: underline;
-      }
+        /* Styling for the minimalist header/nav bar */
+        .navbar a {
+            color: #000000;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 0.25rem 0.5rem;
+            transition: color 0.2s;
+        }
+        .navbar a:hover {
+            text-decoration: underline;
+        }
+
+        /* Custom styling for the illustration area */
+        .illustration {
+            min-height: 400px;
+            /*background-color: #000000;*/
+            color: #FDF1DB;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: serif;
+            font-size: 1.5rem;
+            text-align: center;
+            padding: 2rem;
+        }
     </style>
-  </head>
-<body id="top">
+</head>
+<body class="font-sans antialiased">
 
-<div id="headerunderlay" class="grey darken-3">
-  <div class="menu">
-    Upcoming: Meet-Up @ CHI '26
-    &nbsp;&nbsp;&nbsp;
-    Past Events:
-    [ <a href="meta-hci-workshop-chi25.html">Workshop @ CHI '25</a> ]
-  </div>
-</div>
-
-<div class="col m9 l10 topbarpadding">
-
-<!--
-<div id="navToggle" data-aos="fade-down" data-aos-anchor="#trigger-menu" class="hide-on-med-and-down">
-  <a href="./#top">Meta-HCI</a>
-  <div id="nav" class="col m3 l2">
-    <ul class="section table-of-contents">
-      <li><a href="#introduction">Introduction</a></li>
-      <li><a href="#meta-research">Meta-Research</a></li>
-      <li><a href="#objectives">Objectives</a></li>
-      <li><a href="#topics">Topics</a></li>
-      <li><a href="#structure">Structure</a></li>
-      <li><a href="#cfp">Call for Participation</a></li>
-      <li><a href="#organizers">Organizers</a></li>
-    </ul>
-  </div>
-</div>-->
-
-
-<section class="spbg1" style="margin:0;padding:0;">
-  <div id="logo" style="height:65vh">
-    Meta-HCI
-    Meet-Up 2026
-    <br />
-  <span style="font-size:3rem">...in planning...</span>
-    <br />
-  <span style="font-size:3rem">&#8594; <a href="./cfp/Meta-HCI_Self_Reflection-2026.pdf">Read the event description</a> [PDF]</span>
-  </div>
-</section>
-
-
-
-<footer class="page-footer grey darken-4">
-  <div class="container">
-    <div class="row">
-      <div class="col l8 s12">
-        <h5 class="white-text">Meta-HCI</h5>
-        <p class="grey-text text-lighten-4">Meet-up</p>
-        <p class="grey-text text-lighten-4">April, 2026</p>
-        <p class="grey-text text-lighten-4">
-          Co-located with the
-          <a href="https://chi2026.acm.org/" title="CHI '26" target="_blank" class="grey-text text-lighten-4">ACM CHI Conference on Human Factors in Computing Systems (CHI '26)</a>
-          <br />
-	        Barcelona, Spain
-        </p>
-        <h5 class="grey-text">Contact</h5>
-        <p class="grey-text">
-        	Questions? 
-          Contact us at
-        	<a class="grey-text" href="mailto:meta-hci@oulu.fi">meta-hci@oulu.fi</a>.
-        </p>
-<!--
-        <h5 class="black-text">Links</h5>
-        <ul>
-          <li>
-            <a class="black-text text-lighten-3" href="http://www.oulu.fi/" target="_blank" title="University of Oulu">University of Oulu</a>
-          </li>
-          <li>
-            <a class="black-text text-lighten-3" href="https://www.inria.fr/en/inria-centre-university-lille" target="_blank" title="Inria Centre at the University of Lille">Inria Centre at the University of Lille</a>
-          </li>
-          <li>
-            <a class="black-text text-lighten-3" href="https://www.u-tokyo.ac.jp/" target="_blank" title="University of Tokyo">University of Tokyo</a>
-          </li>
-          <li>
-            <a class="black-text text-lighten-3" href="https://www.en.aau.dk/" target="_blank" title="Aalborg University">Aalborg University</a>
-          </li>
-          <li>
-            <a class="black-text text-lighten-3" href="https://www.utoronto.ca/" target="_blank" title="University of Toronto">University of Toronto</a>
-          </li>
-        </ul>
-      </div>
-      <div class="col l4 offset-l2 s12">
-      </div>
+    <div id="pastevents" class="bg-brand-black text-brand-beige py-2 px-8">
+        <div class="max-w-7xl mx-auto text-center">
+            <span class="text-brand-beige/80 mt-1 sm:mt-0">
+                Past Events:
+                [ <a href="meta-hci-workshop-chi25.html" class="underline hover:text-white transition-colors">Workshop @ CHI '25</a> ]
+            </span>
+        </div>
     </div>
-  </div>
--->
-  <div class="footer-copyright grey-text">
-    &copy; 2025-2026 All Rights Reserved
-  </div>
-</footer>
+            <nav class="absolute top-8 left-0 right-0 py-6 px-8 max-w-7xl mx-auto z-10">
+        <div class="flex justify-between items-center navbar">
+            <div class="text-lg font-bold">
+                Meta-HCI: Practising Reflection in HCI Research
+            </div>
+            <div class="space-x-8 text-sm uppercase hidden md:flex">
+                <a href="#overview">Overview</a>
+                <a href="#discussion">Discussion</a>
+                <a href="#agenda">Agenda</a>
+                <a href="#organisers">Team</a>
+                <a href="#connect">Connect</a>
+            </div>
+        </div>
+    </nav>
 
+        <header class="pt-32 pb-0 md:pb-0">
+        <div class="max-w-7xl mx-auto flex flex-col lg:flex-row">
+            
+                        <div class="lg:w-1/2 p-8 md:p-16 lg:p-20 flex flex-col justify-center order-1 lg:order-2">
+                <div class="text-brand-black mb-6">
+                    <p class="text-base sm:text-lg uppercase tracking-wider mb-3">
+                        CHI 2026 Meet-Up
+                    </p>
+                    <p class="text-base sm:text-lg mb-6">
+                        April 2026<br>
+                        Barcelona, Spain
+                    </p>
+                    <h1 class="text-5xl sm:text-6xl md:text-7xl font-semibold leading-none mb-6">
+                        Meta-HCI
+                    </h1>
+                    <h2 class="text-3xl sm:text-4xl font-light leading-tight">
+                        Practising Reflection <br>in HCI Research
+                    </h2>
+                </div>
+            </div>
+            
+                        <div class="lg:w-1/2 flex items-end order-2 lg:order-1">
+                <div class="w-full illustration relative overflow-hidden rounded-b-xl lg:rounded-none">
+                    <div class="absolute inset-0 bg-brand-beige flex items-start justify-center">
+                        <img src="reflection_drawing.svg" alt="illustration with a black figure looking up into a mirror" class="w-2/3 h-auto">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
 
-<!-- https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js -->
-<script src="js/jquery-3.3.1.min.js"></script>
-<script>if (!window.jQuery) { document.write('<script src="js/jquery-3.3.1.min.js"><\/script>'); }</script>
-<script src="js/jquery.matchHeight-min.js"></script>
+    <div class="bg-brand-black text-brand-beige">
+        <main class="max-w-4xl mx-auto py-16 px-6 lg:px-8">
+            <section id="overview" class="mb-0 pt-8">
+                <h3 class="text-3xl font-bold mb-8">What is this meet-up about?</h3>
+                <div class="space-y-5 text-base leading-relaxed border-l-4 border-brand-beige pl-6">
+                    <p>This meet-up brings the CHI community together to candidly explore how reflection shapes our research, our values, and our everyday academic realities, offering a space to connect, share challenges, and build an enduring community of reflective practice.</p>
+                    <p>We invite all CHI attendees to join the <b>Meta-HCI</b> community to explore how we, as researchers and practitioners, reflect on our own practices—and how we might do so more intentionally. By fostering candid conversations about ourselves, our practices, and the structures that shape the field, the meet-up offers an opportunity for collective self-examination and connection across subfields, laying the groundwork for an enduring community of reflective practice.</p>
 
+                    <p><span >&#8594; <a href="./cfp/Meta-HCI_Self_Reflection-2026.pdf" class="text-brand-beige underline hover:text-white transition-colors">Read the event description</a> [PDF]</span>
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
 
-<script type="text/javascript">
-$(function() {
+    <main class="max-w-4xl mx-auto py-16 px-6 lg:px-8">
 
-  $('.breakouttxt').matchHeight({
-    byRow: true,
-    property: 'height'
-  });
+        <section id="discussion" class="mb-20 pt-8">
+            <h3 class="text-3xl font-bold text-brand-black mb-12 text-center">What will we be discussing?</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                <div class="px-4 py-6 border-t-4 border-brand-black text-center">
+                    <div class="text-2xl font-semibold text-brand-black mb-3">Reflection on the self</div>
+                    <p class="text-brand-gray text-sm">How do our values, emotions, assumptions, and life circumstances shape how we think, decide, and act as researchers? often in ways we rarely make explicit.</p>
+                </div>
 
-  $('.collection').matchHeight({
-    byRow: true,
-    property: 'height'
-  });
+                <div class="px-4 py-6 border-t-4 border-brand-black text-center">
+                    <div class="text-2xl font-semibold text-brand-black mb-3">Reflection on practice</div>
+                    <p class="text-brand-gray text-sm">How do we actually do research: How do our methods, collaborations, ethical routines, and everyday choices shape what kinds of knowledge we produce.</p>
+                </div>
 
-  let maxHeight = 0;
-  $('.organizer').each(function() {
-      maxHeight = Math.max(maxHeight, $(this).height());
-  }).height(maxHeight);
-  console.log('maxHeight', maxHeight);
+                <div class="px-4 py-6 border-t-4 border-brand-black text-center">
+                    <div class="text-2xl font-semibold text-brand-black mb-3">Reflection on structures</div>
+                    <p class="text-brand-gray text-sm">How do the wider societal and institutional conditions of HCI, including power relations, publication systems, and career incentives determine what research is possible, visible, and valued?</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
-  $('.organizer .img').on('click', function () {
-    var url = $(this).parent().find('a').attr('href');
-    window.location = url;
-  });
+    <div class="bg-brand-black text-brand-beige">
+        <main class="max-w-4xl mx-auto py-16 px-6 lg:px-8">
+            
+            <section id="agenda" class="mb-0 pt-8">
+                <h3 class="text-3xl font-bold text-brand-beige mb-10">Agenda: 90 Minutes for Collective Examination (Data And Times To Be Confirmed)</h3>
+                
+                <ul class="space-y-8">
+                    <li class="flex flex-col md:flex-row border-b border-brand-beige/20 pb-5">
+                        <span class="font-bold text-brand-beige w-32 flex-shrink-0 text-xl">X:00 PM</span>
+                        <div class="md:ml-12">
+                            <strong class="text-lg text-brand-beige">Welcome & Framing</strong>
+                            <p class="text-brand-beige/80 text-sm mt-1">Short welcome, framing of reflection in HCI, and initial networking.</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-col md:flex-row border-b border-brand-beige/20 pb-5">
+                        <span class="font-bold text-brand-beige w-32 flex-shrink-0 text-xl">X:10 PM</span>
+                        <div class="md:ml-12">
+                            <strong class="text-lg text-brand-beige">Icebreaker: Getting to know each other</strong>
+                            <p class="text-brand-beige/80 text-sm mt-1">Participants share a brief moment of reflection that shaped their research or practice.</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-col md:flex-row border-b border-brand-beige/20 pb-5">
+                        <span class="font-bold text-brand-beige w-32 flex-shrink-0 text-xl">X:40 PM</span>
+                        <div class="md:ml-12">
+                            <strong class="text-lg text-brand-beige">Opinion Spectrum</strong>
+                            <p class="text-brand-beige/80 text-sm mt-1">Participants position themselves on provocative prompts (e.g., should reflection be personal or institutionalised?) to spark dialogue.</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-col md:flex-row border-b border-brand-beige/20 pb-5">
+                        <span class="font-bold text-brand-beige w-32 flex-shrink-0 text-xl">X:55 PM</span>
+                        <div class="md:ml-12">
+                            <strong class="text-lg text-brand-beige">Story Circles</strong>
+                            <p class="text-brand-beige/80 text-sm mt-1">Small groups share personal accounts of reflection, including practices, barriers, and lessons learned in a candid format.</p>
+                        </div>
+                    </li>
+                    <li class="flex flex-col md:flex-row pb-5">
+                        <span class="font-bold text-brand-beige w-32 flex-shrink-0 text-xl">X+1:20 PM</span>
+                        <div class="md:ml-12">
+                            <strong class="text-lg text-brand-beige">Wrap-up & Future Directions</strong>
+                            <p class="text-brand-beige/80 text-sm mt-1">Collective identification of common themes and discussion of how to maintain and grow the community post-CHI.</p>
+                        </div>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
 
-  AOS.init({
-   duration: 1200
-  });
+    <main class="max-w-4xl mx-auto py-16 px-6 lg:px-8">
 
-});
+        <section id="organisers" class="text-center py-12 pt-8">
+            <h3 class="text-3xl font-bold text-brand-black mb-12">Organising Committee</h3>
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-6">
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=AK" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=AK'" class="rounded-full mx-auto mb-2" alt="Annika Kaltenhauser">
+                    <p class="font-semibold text-brand-black text-sm">Annika Kaltenhauser</p>
+                    <p class="text-xs text-brand-gray">University of St. Gallen</p>
+                </div>
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=JA" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=JA'" class="rounded-full mx-auto mb-2" alt="James Arnéra">
+                    <p class="font-semibold text-brand-black text-sm">James Arnéra</p>
+                    <p class="text-xs text-brand-gray">University of Lausanne</p>
+                </div>
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=AU" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=AU'" class="rounded-full mx-auto mb-2" alt="Amelie Unger">
+                    <p class="font-semibold text-brand-black text-sm">Amelie Unger</p>
+                    <p class="text-xs text-brand-gray">University of Luebeck</p>
+                </div>
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=SP" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=SP'" class="rounded-full mx-auto mb-2" alt="Sophia Ppali">
+                    <p class="font-semibold text-brand-black text-sm">Sophia Ppali</p>
+                    <p class="text-xs text-brand-gray">CYENS Centre of Excellence</p>
+                </div>
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=NB" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=NB'" class="rounded-full mx-auto mb-2" alt="Niels van Berkel">
+                    <p class="font-semibold text-brand-black text-sm">Niels van Berkel</p>
+                    <p class="text-xs text-brand-gray">Aalborg University</p>
+                </div>
 
-  document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.scrollspy');
-    var instances = M.ScrollSpy.init(elems, {
-      throttle: 100,
-      scrollOffset: 200,
-      activeClass: 'active',
-    });
-  });
-</script>        
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=BT" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=BT'" class="rounded-full mx-auto mb-2" alt="Benjamin Tag">
+                    <p class="font-semibold text-brand-black text-sm">Benjamin Tag</p>
+                    <p class="text-xs text-brand-gray">University of New South Wales</p>
+                </div>
+
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=EG" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=EG'" class="rounded-full mx-auto mb-2" alt="Elena Glassman">
+                    <p class="font-semibold text-brand-black text-sm">Elena Glassman</p>
+                    <p class="text-xs text-brand-gray">Harvard University</p>
+                </div>
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=PS" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=PS'" class="rounded-full mx-auto mb-2" alt="Phoebe Sengers">
+                    <p class="font-semibold text-brand-black text-sm">Phoebe Sengers</p>
+                    <p class="text-xs text-brand-gray">Cornell University</p>
+                </div>
+
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=SH" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=SH'" class="rounded-full mx-auto mb-2" alt="Simo Hosio">
+                    <p class="font-semibold text-brand-black text-sm">Simo Hosio</p>
+                    <p class="text-xs text-brand-gray">University of Oulu</p>
+                </div>
+                
+                <div class="p-3">
+                    <img src="https://placehold.co/80x80/000000/FDF1DB?text=JO" onerror="this.src='https://placehold.co/80x80/000000/FDF1DB?text=JO'" class="rounded-full mx-auto mb-2" alt="Jonas Oppenlaender">
+                    <p class="font-semibold text-brand-black text-sm">Jonas Oppenlaender</p>
+                    <p class="text-xs text-brand-gray">University of Oulu</p>
+                </div>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer id="connect" class="bg-brand-black mt-20 py-16 text-brand-beige">
+        <div class="max-w-4xl mx-auto px-6 text-center text-sm">
+            <h4 class="text-2xl font-bold mb-4">Connect with us</h4>
+            <p class="text-lg font-light mb-6">
+                We hope to see you at CHI 2026 in Barcelona!
+            </p>
+            <p class="mt-4 text-brand-beige/80">
+                E-mail: <a href="mailto:contact@meta-hci.org" class="underline hover:opacity-80">annika.kaltenhauser@unisg.ch</a>
+            </p>
+            <p class="mt-8 text-xs opacity-70">
+                2026 Meta-HCI Meet-Up | Event at CHI 2026
+            </p>
+        </div>
+    </footer>
 
 </body>
 </html>
