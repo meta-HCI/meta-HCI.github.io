@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Human Thermometer</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500&display=swap');
+
+        :root {
+            --bg-base: #f4ece1;
+            --bg-gradient: #fdfaf6;
+            --text-main: #2d2422;
+            --accent: #c05c3d;
+            --accent-hover: #a3482c;
+            --secondary-text: #8c7b74;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--bg-base);
+            background-image: radial-gradient(circle at center, var(--bg-gradient) 0%, var(--bg-base) 100%);
+            color: var(--text-main);
+            font-family: 'Lora', serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer; /* Suggests the whole screen is clickable */
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 2rem;
+            box-sizing: border-box;
+        }
+
+        /* Question Typography & Animation */
+        #question-display {
+            font-size: clamp(2rem, 5vw, 4.5rem);
+            line-height: 1.2;
+            font-weight: 500;
+            margin: 0 0 4rem 0;
+            letter-spacing: -0.02em;
+            
+            /* Animation properties */
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        /* Classes for JS toggling */
+        #question-display.fade-out {
+            opacity: 0;
+            transform: translateY(-15px);
+        }
+
+        #question-display.fade-in {
+            opacity: 0;
+            transform: translateY(15px);
+        }
+
+        /* Controls UI */
+        .controls {
+            position: absolute;
+            bottom: 4rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            z-index: 10;
+        }
+
+        button.next-btn {
+            background-color: transparent;
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 0.8rem 2.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        button.next-btn:hover {
+            background-color: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(192, 92, 61, 0.15);
+        }
+
+        .counter {
+            font-family: 'Outfit', sans-serif;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .end-state {
+            color: var(--secondary-text);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1 id="question-display">Loading...</h1>
+    </div>
+
+    <div class="controls">
+        <button id="next-btn" class="next-btn">Next Question</button>
+        <div id="counter-display" class="counter">Question 0 / 0</div>
+    </div>
+
+    <script>
+        // --- Configuration & Data ---
+        
+        // Parameter for the forced question
+        const FORCED_QUESTION_NUMBER = 4; 
+        const FORCED_QUESTION_TEXT = "HCI needs more retractions.";
+
+        const rawQuestions = {
+            "borderline": [
+                "The best interfaces are invisible.",
+                "Personalization does more harm than good.",
+                "Automating design decisions is always a loss.",
+            ],
+            "truism": [
+                "Most HCI studies wouldn't replicate.",
+                "HCI is too far removed from real users.",
+                "Peer review in HCI is fundamentally broken.",
+                "We cite the same people too much.",
+                "Null results deserve equal publication space.",
+                "HCI is dominated by Western, educated perspectives.",
+                "HCI research rarely changes real products.",
+                "Industry impact matters more than citations.",
+                "We overvalue novelty and undervalue replication.",
+            ],
+            "divisive": [
+                "Dark patterns are sometimes justified.",
+                "A/B testing is unethical by default.",
+                "Lived experience should count as research evidence.",
+                "HCI needs more retractions.",
+                "Qualitative research is too easy to publish.",
+                "We should design for addiction if users want it.",
+                "A designer who doesn't use their own product shouldn't ship it.",
+                "AI will replace UX researchers within 5-10 years.",
+                "Informed consent in user studies is mostly theater.",
+                "Researchers should disclose their positionality in every paper.",
+                "Designers are personally responsible when their product causes harm.",
+                "HCI should refuse funding from big tech.",
+                "LLMs make user interviews obsolete.",
+                "Friction in design is underrated.",
+                "Researchers should disclose their positionality in every paper.", // Duplicate will be cleaned
+                "Users don't know what they need.",
+            ]
+        };
+
+        // --- State Management ---
+        let pools = {};
+        let questionCount = 0;
+        let totalQuestions = 0;
+        let lastCategory = null;
+        let isTransitioning = false;
+
+        // DOM Elements
+        const displayEl = document.getElementById('question-display');
+        const nextBtn = document.getElementById('next-btn');
+        const counterEl = document.getElementById('counter-display');
+
+        // --- Logic ---
+
+        function init() {
+            let deduplicatedTotal = 0;
+            // Clean arrays (remove duplicates and extract the forced question)
+            for (const [category, questions] of Object.entries(rawQuestions)) {
+                // Using Set to remove any identical strings
+                let uniqueQuestions = [...new Set(questions)];
+                
+                // Remove the forced question from the standard pool to avoid accidental early/double sampling
+                pools[category] = uniqueQuestions.filter(q => q !== FORCED_QUESTION_TEXT);
+                
+                deduplicatedTotal += pools[category].length;
+            }
+            
+            // Total questions = all unique standard questions + 1 forced question
+            totalQuestions = deduplicatedTotal + 1; 
+            
+            // Start the event!
+            advanceQuestion();
+        }
+
+        function getNextQuestion() {
+            questionCount++;
+
+            // 1. Forced Question logic
+            if (questionCount === FORCED_QUESTION_NUMBER) {
+                return FORCED_QUESTION_TEXT;
+            }
+
+            // 2. Start with Truism logic
+            if (questionCount === 1) {
+                lastCategory = 'truism';
+                return pickAndRemove('truism');
+            }
+
+            // 3. Intelligent Sampling logic
+            let availableCategories = Object.keys(pools).filter(cat => pools[cat].length > 0);
+
+            if (availableCategories.length === 0) {
+                return null; // Out of questions
+            }
+
+            // Try to pick a category we didn't just use, to prevent oversampling clusters
+            let selectableCategories = availableCategories.filter(cat => cat !== lastCategory);
+
+            // If only one category is left, we have to use it regardless of lastCategory
+            if (selectableCategories.length === 0) {
+                selectableCategories = availableCategories;
+            }
+
+            // Pick a random category
+            const chosenCategory = selectableCategories[Math.floor(Math.random() * selectableCategories.length)];
+            lastCategory = chosenCategory;
+
+            return pickAndRemove(chosenCategory);
+        }
+
+        function pickAndRemove(category) {
+            if (!pools[category] || pools[category].length === 0) return null;
+            // Pick random index within the chosen category
+            const idx = Math.floor(Math.random() * pools[category].length);
+            // Remove and return the item
+            const q = pools[category].splice(idx, 1)[0];
+            return q;
+        }
+
+        // --- UI Updates & Animation ---
+
+        function advanceQuestion() {
+            if (isTransitioning) return; // Prevent spam clicking
+            
+            const nextText = getNextQuestion();
+            
+            isTransitioning = true;
+            
+            // 1. Fade out current
+            displayEl.classList.add('fade-out');
+
+            setTimeout(() => {
+                // 2. Change content while invisible
+                if (nextText === null) {
+                    displayEl.innerHTML = "<span class='end-state'>That's all the statements. Thank you for participating.</span>";
+                    nextBtn.style.display = 'none';
+                    counterEl.style.display = 'none';
+                } else {
+                    displayEl.textContent = nextText;
+                    counterEl.textContent = `Statement ${questionCount} / ${totalQuestions}`;
+                }
+
+                // Prepare for fade in
+                displayEl.classList.remove('fade-out');
+                displayEl.classList.add('fade-in');
+
+                // Trigger reflow to ensure CSS animation applies
+                void displayEl.offsetWidth; 
+
+                // 3. Fade in new
+                displayEl.classList.remove('fade-in');
+
+                setTimeout(() => {
+                    isTransitioning = false;
+                }, 500); // Matches CSS transition duration
+
+            }, 500); // Wait for fade-out to complete
+        }
+
+        // --- Event Listeners ---
+
+        nextBtn.addEventListener('click', (e) => {
+            e.stopPropagation(); // Prevent document click from triggering twice
+            advanceQuestion();
+        });
+
+        // Allow clicking anywhere on the background to advance (great for presentations)
+        document.body.addEventListener('click', (e) => {
+            // Ensure we aren't clicking the text directly so users can still highlight/copy text if needed
+            if (e.target.tagName !== 'H1' && e.target.tagName !== 'BUTTON') {
+                advanceQuestion();
+            }
+        });
+
+        // Allow keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space' || e.code === 'ArrowRight') {
+                e.preventDefault(); // Prevent page scroll on spacebar
+                advanceQuestion();
+            }
+        });
+
+        // Boot up
+        window.onload = init;
+
+    </script>
+</body>
+</html>
