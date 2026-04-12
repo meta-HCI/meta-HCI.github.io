@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meetup Icebreaker</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Outfit:wght@300;400;500;700&display=swap');
+
+        :root {
+            --bg-base: #f4ece1;
+            --bg-gradient: #fdfaf6;
+            --text-main: #2d2422;
+            --accent: #c05c3d;
+            --accent-hover: #a3482c;
+            --secondary-text: #8c7b74;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background-color: var(--bg-base);
+            background-image: radial-gradient(circle at center, var(--bg-gradient) 0%, var(--bg-base) 100%);
+            color: var(--text-main);
+            font-family: 'Lora', serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            cursor: pointer; /* Suggests the whole screen is clickable to toggle timer */
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex-grow: 1;
+            padding: 2rem;
+            box-sizing: border-box;
+            gap: 2rem;
+        }
+
+        /* Instructions Typography */
+        .instructions {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1.2;
+            font-weight: 500;
+            margin: 0;
+            letter-spacing: -0.02em;
+        }
+
+        .subtitle {
+            font-family: 'Outfit', sans-serif;
+            color: var(--secondary-text);
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            margin-top: -1rem;
+            font-weight: 400;
+        }
+
+        .questions {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            font-size: clamp(1.5rem, 3vw, 2.5rem);
+            font-style: italic;
+            color: var(--accent);
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .questions li::before {
+            content: "•";
+            margin-right: 15px;
+            color: var(--secondary-text);
+            opacity: 0.5;
+        }
+
+        .footer-note {
+            font-size: clamp(1.1rem, 2vw, 1.5rem);
+            color: var(--secondary-text);
+            margin-top: 1rem;
+        }
+
+        /* Timer UI */
+        .timer-display {
+            font-family: 'Outfit', sans-serif;
+            font-size: clamp(5rem, 12vw, 9rem);
+            font-weight: 700;
+            color: var(--text-main);
+            line-height: 1;
+            letter-spacing: -0.02em;
+            font-variant-numeric: tabular-nums;
+            transition: color 0.3s ease;
+        }
+
+        .timer-display.finished {
+            color: var(--accent);
+            animation: pulse 2s infinite;
+        }
+
+        /* Controls UI */
+        .controls {
+            position: absolute;
+            bottom: 3rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+            z-index: 10;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 1rem;
+        }
+
+        button.main-btn, button.icon-btn {
+            background-color: transparent;
+            border: 1.5px solid var(--accent);
+            color: var(--accent);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            border-radius: 50px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: all 0.3s ease;
+        }
+
+        button.main-btn {
+            padding: 0.8rem 2.5rem;
+        }
+
+        button.icon-btn {
+            padding: 0.8rem 1.5rem;
+        }
+
+        button.main-btn:hover, button.icon-btn:hover {
+            background-color: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(192, 92, 61, 0.15);
+        }
+
+        .time-options {
+            font-family: 'Outfit', sans-serif;
+            color: var(--secondary-text);
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .time-options span {
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .time-options span:hover, .time-options span.active {
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="instructions">
+            <h1>Find a person to talk to!</h1>
+            <p class="subtitle">(someone you do not know)</p>
+            
+            <ul class="questions">
+                <li>Who are they?</li>
+                <li>Why did they come to this Meet-up (reflection in HCI, reflection on HCI, self-reflection)?</li>
+                <li>1 fun fact!</li>
+            </ul>
+            
+            <p class="footer-note">Switch at the signal (or continue)</p>
+        </div>
+
+        <div id="timer" class="timer-display">03:00</div>
+    </div>
+
+    <div class="controls">
+        <div class="button-group">
+            <button id="toggle-btn" class="main-btn">Start</button>
+            <button id="reset-btn" class="icon-btn">Reset</button>
+        </div>
+        <div class="time-options">
+            <span class="time-preset" data-time="120">2 Min</span>
+            <span class="time-preset active" data-time="180">3 Min</span>
+            <span class="time-preset" data-time="300">5 Min</span>
+        </div>
+    </div>
+
+    <script>
+        // --- Synthesize Chime Sound using Web Audio API ---
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioCtx;
+
+        function playChime() {
+            if (!audioCtx) {
+                audioCtx = new AudioContext();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+
+            // A pleasant, bell-like chord (C5, E5, G5)
+            const frequencies = [523.25, 659.25, 783.99]; 
+            
+            // Loop the chime 2 times
+            for (let loop = 0; loop < 2; loop++) {
+                const loopOffset = loop * 2.5; // 2.5 seconds between each strike
+
+                frequencies.forEach((freq, i) => {
+                    const osc = audioCtx.createOscillator();
+                    const gainNode = audioCtx.createGain();
+                    
+                    osc.connect(gainNode);
+                    gainNode.connect(audioCtx.destination);
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = freq;
+                    
+                    const startTime = audioCtx.currentTime + loopOffset + (i * 0.15);
+
+                    // Envelope generation for bell/chime sound
+                    gainNode.gain.setValueAtTime(0, startTime);
+                    // Quick attack
+                    gainNode.gain.linearRampToValueAtTime(0.4, startTime + 0.05);
+                    // Long, exponential decay
+                    gainNode.gain.exponentialRampToValueAtTime(0.001, startTime + 3.0);
+                    
+                    // Arpeggiate slightly for a gentler, more natural sound
+                    osc.start(startTime);
+                    osc.stop(startTime + 3.5);
+                });
+            }
+        }
+
+        // --- Timer Logic ---
+        let defaultTime = 5 * 60; // Default 3 minutes
+        let timeRemaining = defaultTime;
+        let timerInterval = null;
+        let waitTimeout = null;
+        let isRunning = false;
+
+        const timerDisplay = document.getElementById('timer');
+        const toggleBtn = document.getElementById('toggle-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const timePresets = document.querySelectorAll('.time-preset');
+
+        function formatTime(seconds) {
+            const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+            const s = (seconds % 60).toString().padStart(2, '0');
+            return `${m}:${s}`;
+        }
+
+        function updateDisplay() {
+            timerDisplay.textContent = formatTime(timeRemaining);
+            if (timeRemaining === 0) {
+                timerDisplay.classList.add('finished');
+            } else {
+                timerDisplay.classList.remove('finished');
+            }
+        }
+
+        function toggleTimer() {
+            // Initialize audio context on first user interaction to bypass browser autoplay policies
+            if (!audioCtx) audioCtx = new AudioContext();
+
+            if (isRunning) {
+                clearInterval(timerInterval);
+                clearTimeout(waitTimeout);
+                toggleBtn.textContent = 'Resume';
+                isRunning = false;
+            } else {
+                if (timeRemaining === 0) resetTimer(); // Auto-reset if starting from 0
+                
+                toggleBtn.textContent = 'Pause';
+                isRunning = true;
+                timerInterval = setInterval(() => {
+                    if (timeRemaining > 0) {
+                        timeRemaining--;
+                        updateDisplay();
+                        
+                        if (timeRemaining === 0) {
+                            clearInterval(timerInterval);
+                            playChime();
+                            toggleBtn.textContent = 'Switching...';
+                            
+                            // Wait 20 seconds, then auto-restart
+                            waitTimeout = setTimeout(() => {
+                                resetTimer();
+                                toggleTimer();
+                            }, 20000);
+                        }
+                    }
+                }, 1000);
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerInterval);
+            clearTimeout(waitTimeout);
+            isRunning = false;
+            timeRemaining = defaultTime;
+            toggleBtn.textContent = 'Start';
+            updateDisplay();
+        }
+
+        function setPreset(seconds, element) {
+            defaultTime = seconds;
+            resetTimer();
+            
+            // Update active styling
+            timePresets.forEach(preset => preset.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // --- Event Listeners ---
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            toggleTimer();
+        });
+
+        resetBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            resetTimer();
+        });
+
+        timePresets.forEach(preset => {
+            preset.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const seconds = parseInt(e.target.getAttribute('data-time'));
+                setPreset(seconds, e.target);
+            });
+        });
+
+        // Allow clicking anywhere on the background to toggle play/pause
+        document.body.addEventListener('click', (e) => {
+            // Ignore if clicking on buttons, presets, or selecting text
+            if (e.target.tagName !== 'BUTTON' && e.target.tagName !== 'SPAN' && window.getSelection().toString() === '') {
+                toggleTimer();
+            }
+        });
+
+        // Keyboard support: Space to toggle, R to reset
+        document.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                toggleTimer();
+            } else if (e.code === 'KeyR') {
+                resetTimer();
+            }
+        });
+
+        // Initialize display
+        updateDisplay();
+    </script>
+</body>
+</html>
