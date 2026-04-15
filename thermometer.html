@@ -81,6 +81,26 @@
             z-index: 10;
         }
 
+        .agree {
+            position: absolute;
+            top: 40%;
+            right: 2rem;
+            z-index: 999;
+            font-size: 3rem;
+            text-align:right;
+        }
+        .disagree {
+            position: absolute;
+            top: 40%;
+            left: 2rem;
+            z-index: 999;
+            font-size: 3rem;
+            text-align:left;
+        }
+        .agree .arrow, .disagree .arrow {
+            font-size: 8rem;
+        }
+
         button.next-btn {
             background-color: transparent;
             border: 1.5px solid var(--accent);
@@ -121,6 +141,15 @@
 
     <div class="container">
         <h1 id="question-display">Loading...</h1>
+    </div>
+
+    <div class="agree">
+        <span class="arrow">&gt;</span><br />
+        Agree
+    </div>
+    <div class="disagree">
+        <span class="arrow">&lt;</span><br />
+        Disagree
     </div>
 
     <div class="controls">
